@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
       await login(data.email, data.password);
       // After login, navigation automatically changes because of AppNavigator
     } catch (err) {
-      alert(err.response?.data?.message || 'Login failed');
+      alert(err.response?.data?.message || 'Login failed.');
     }
   };
 
