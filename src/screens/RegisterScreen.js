@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import api from '../api/axiosInstance.js';
 import useAuthStore from '../store/authStore.js';
+import Header from '../components/Header.js';
+import CustomTextInput from '../components/CustomTextInput.js';
+import CustomButton from '../components/CustomButton.js';
 
 // ---------------------------
 // Validation schema using yup
@@ -40,23 +43,25 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Header title="Register" />
+      <View style={styles.content}>
       {/* Email Input */}
       <Controller
         control={control}
         name="email"
         defaultValue=""
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
+            <CustomTextInput
+              name="Email"
             placeholder="Email"
             value={value}
             onChangeText={onChange}
             autoCapitalize="none"
+              error={errors.email?.message}
           />
         )}
       />
-      {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
       {/* Password Input */}
       <Controller
@@ -64,16 +69,16 @@ export default function RegisterScreen({ navigation }) {
         name="password"
         defaultValue=""
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
+            <CustomTextInput
+              name="Password"
             placeholder="Password"
             secureTextEntry
             value={value}
             onChangeText={onChange}
+              error={errors.password?.message}
           />
         )}
       />
-      {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
 
       {/* Confirm Password Input */}
       <Controller
@@ -81,23 +86,28 @@ export default function RegisterScreen({ navigation }) {
         name="confirmPassword"
         defaultValue=""
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
+            <CustomTextInput
+              name="Confirm Password"
             placeholder="Confirm Password"
             secureTextEntry
             value={value}
             onChangeText={onChange}
+              error={errors.confirmPassword?.message}
           />
         )}
       />
-      {errors.confirmPassword && <Text style={styles.error}>{errors.confirmPassword.message}</Text>}
 
       {/* Submit Button */}
-      <Button title="Register" onPress={handleSubmit(register)} />
+        <CustomButton name="Register" onPress={handleSubmit(register)} />
 
       {/* Go to Login */}
-      <Button title="Already have an account? Login" onPress={() => navigation.navigate('Login')} />
-    </View>
+        <CustomButton
+          name="Already have an account? Login"
+          onPress={() => navigation.navigate('Login')}
+          variant="text"
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -107,18 +117,11 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
     padding: 20,
     justifyContent: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#aaa',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 5,
-  },
-  error: {
-    color: 'red',
-    marginBottom: 5,
   },
 });

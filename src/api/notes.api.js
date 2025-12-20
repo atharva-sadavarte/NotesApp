@@ -28,4 +28,14 @@ export const fetchNotes = async () => {
     );
     return res.data;
   };
+
+  // deleteNote
+  export const deleteNote = async (noteId) => {
+    const token = await AsyncStorage.getItem("token");
+    const res = await api.delete(`/notes/${noteId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  };
+ 
   

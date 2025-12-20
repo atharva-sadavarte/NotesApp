@@ -1,15 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FileText, User } from 'lucide-react-native';
 import NotesScreen from '../screens/NotesScreen';
 import NoteDetailScreen from '../screens/NoteDetailScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function AppNavigator() {
+// Notes Stack Navigator (for Notes and NoteDetail screens)
+function NotesStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="Notes"
+        name="NotesList"
         component={NotesScreen}
         options={{ title: 'My Notes' }}
       />
@@ -19,5 +24,44 @@ export default function AppNavigator() {
         options={{ title: 'Note Details' }}
       />
     </Stack.Navigator>
+  );
+}
+
+// Main Tab Navigator
+export default function AppNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: '#999',
+        tabBarStyle: {
+          paddingBottom: 5,
+          paddingTop: 5,
+          height: 60,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="NotesTab"
+        component={NotesStack}
+        options={{
+          title: 'Notes',
+          tabBarIcon: ({ color, size }) => (
+            <FileText size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ProfileTab"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <User size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
