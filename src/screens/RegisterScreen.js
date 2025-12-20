@@ -37,7 +37,7 @@ export default function RegisterScreen({ navigation }) {
       alert('Registration successful! Please login.');
       navigation.navigate('Login'); // Go to login after success
     } catch (err) {
-      console.log(err.response?.data || err.message);
+      // console.log(err.response?.data || err.message);
       alert(err.response?.data?.message || 'Registration failed');
     }
   };

@@ -21,17 +21,8 @@ export default function ProfileScreen() {
       'Logout',
       'Are you sure you want to logout?',
       [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: () => {
-            logout();
-          },
-        },
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Logout', style: 'destructive', onPress: () => logout() },
       ],
       { cancelable: true }
     );
@@ -41,22 +32,24 @@ export default function ProfileScreen() {
     <SafeAreaView style={styles.container}>
       <Header title="Profile" />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Profile Section */}
         <View style={styles.profileSection}>
           <View style={styles.avatarContainer}>
             <View style={styles.avatar}>
-              <User size={48} color="#007AFF" />
+              <User size={48} color="#8338EC" /> 
             </View>
           </View>
           <Text style={styles.userName}>{user?.email || 'Guest'}</Text>
         </View>
 
+        {/* Details Section */}
         <View style={styles.detailsSection}>
           <Text style={styles.sectionTitle}>User Details</Text>
-          
+
           <View style={styles.detailCard}>
             <View style={styles.detailRow}>
-              <View style={styles.detailIcon}>
-                <Mail size={20} color="#007AFF" />
+              <View style={[styles.detailIcon, { backgroundColor: '#D9D4F1' }]}>
+                <Mail size={20} color="#8338EC" />
               </View>
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>Email</Text>
@@ -67,8 +60,8 @@ export default function ProfileScreen() {
 
           <View style={styles.detailCard}>
             <View style={styles.detailRow}>
-              <View style={styles.detailIcon}>
-                <User size={20} color="#007AFF" />
+              <View style={[styles.detailIcon, { backgroundColor: '#D9D4F1' }]}>
+                <User size={20} color="#8338EC" />
               </View>
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>User ID</Text>
@@ -78,13 +71,14 @@ export default function ProfileScreen() {
           </View>
         </View>
 
+        {/* Logout Section */}
         <View style={styles.logoutSection}>
           <TouchableOpacity
             style={styles.logoutButton}
             onPress={handleLogout}
             activeOpacity={0.7}
           >
-            <LogOut size={20} color="#ff4444" />
+            <LogOut size={20} color="#EF4444" />
             <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
@@ -96,7 +90,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff', // Soft pastel background
   },
   content: {
     flex: 1,
@@ -105,8 +99,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 32,
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 5,
   },
   avatarContainer: {
     marginBottom: 16,
@@ -115,46 +114,46 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#e3f2fd',
+    backgroundColor: '#EDE7FF', // Light pastel background
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
-    borderColor: '#007AFF',
+    borderColor: '#8338EC', // Bold accent
   },
   userName: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: '700',
+    color: '#111827',
+    marginTop: 8,
   },
   detailsSection: {
     padding: 16,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 16,
-    color: '#333',
+    color: '#111827',
   },
   detailCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
     padding: 16,
     marginBottom: 12,
-    elevation: 1,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
   detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   detailIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#e3f2fd',
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -164,14 +163,14 @@ const styles = StyleSheet.create({
   },
   detailLabel: {
     fontSize: 12,
-    color: '#666',
+    color: '#6B7280', // muted grey
     marginBottom: 4,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   detailValue: {
     fontSize: 16,
-    color: '#333',
+    color: '#111827',
     fontWeight: '500',
   },
   logoutSection: {
@@ -182,23 +181,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFE3E3', // Soft red pastel
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#ff4444',
-    elevation: 1,
+    borderWidth: 0,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 3,
   },
   logoutButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ff4444',
+    color: '#EF4444',
     marginLeft: 8,
   },
 });
-

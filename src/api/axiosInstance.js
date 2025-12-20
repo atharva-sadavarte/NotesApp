@@ -29,7 +29,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      console.log('🔴 Token invalid or expired. Logging out...');
+      // console.log('🔴 Token invalid or expired. Logging out...');
 
       const logout = useAuthStore.getState().logout;
       await logout();

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Alert, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { Trash2 } from 'lucide-react-native';
 import api from '../api/axiosInstance';
 import Header from '../components/Header.js';
@@ -21,17 +29,15 @@ export default function NoteDetailScreen({ route, navigation }) {
     
     const date = new Date(dateString);
     
-    // Format date as dd/mm/yyyy
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     
-    // Format time as 9:10AM
     let hours = date.getHours();
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12;
     const formattedTime = `${hours}:${minutes}${ampm}`;
     
     return `${day}/${month}/${year}, ${formattedTime}`;
@@ -69,7 +75,7 @@ export default function NoteDetailScreen({ route, navigation }) {
                 },
               ]);
             } catch (error) {
-              console.log('DELETE NOTE ERROR:', error.response?.data || error.message);
+              // console.log('DELETE NOTE ERROR:', error.response?.data || error.message);
               Alert.alert(
                 'Error',
                 error.response?.data?.message || 'Failed to delete note'
@@ -93,10 +99,17 @@ export default function NoteDetailScreen({ route, navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Note Details" showBackButton={true} />
-      <View style={styles.content}>
+      
+      {/* Scrollable Content */}
+      <ScrollView
+        style={styles.contentScroll}
+        showsVerticalScrollIndicator={true}
+        contentContainerStyle={{ paddingBottom: 140 }}
+      >
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{note.title}</Text>
         </View>
+
         <View
           style={[
             styles.contentContainer,
@@ -108,12 +121,13 @@ export default function NoteDetailScreen({ route, navigation }) {
         >
           <Text style={styles.contentText}>{note.content || 'No content'}</Text>
         </View>
+
         <View style={styles.dateContainer}>
           <Text style={styles.dateText}>{formatDateTime(note.created_at)}</Text>
         </View>
-      </View>
+      </ScrollView>
 
-      {/* Delete Button */}
+      {/* Floating Delete Button */}
       <TouchableOpacity
         style={styles.deleteButton}
         onPress={handleDelete}
@@ -133,9 +147,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-  content: {
+  contentScroll: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
   titleContainer: {
     marginBottom: 24,
@@ -151,7 +166,6 @@ const styles = StyleSheet.create({
     lineHeight: 36,
   },
   contentContainer: {
-    backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 16,
     marginBottom: 20,

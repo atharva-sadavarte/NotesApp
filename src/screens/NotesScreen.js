@@ -55,12 +55,12 @@ export default function NotesScreen({ navigation }) {
 
   const loadNotes = async () => {
     try {
-      console.log("Fetching notes for user:", user);
+      // console.log("Fetching notes for user:", user);
       const data = await fetchNotes();
-      console.log("Notes fetched:", data);
+      // console.log("Notes fetched:", data);
       setNotes(data);
     } catch (error) {
-      console.log("FETCH NOTES ERROR:", error.response?.data || error.message);
+      // console.log("FETCH NOTES ERROR:", error.response?.data || error.message);
       Alert.alert("Error", "Failed to load notes");
     }
   };
@@ -68,9 +68,9 @@ export default function NotesScreen({ navigation }) {
   const handleCreateNote = async ({ title, content, noteColor }) => {
     setIsCreating(true);
     try {
-      console.log("Creating note for user:", user);
+      // console.log("Creating note for user:", user);
       const data = await createNote({ title, content });
-      console.log("Note created:", data);
+      // console.log("Note created:", data);
       
       // Store the random color for this note
       if (data && data.id && noteColor) {
@@ -95,7 +95,7 @@ export default function NotesScreen({ navigation }) {
 
   useEffect(() => {
     if (!user) {
-      console.log("No user found in store. You might not be logged in yet.");
+      // console.log("No user found in store. You might not be logged in yet.");
     } else {
       loadNotes();
     }
