@@ -1,16 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, Text, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import api from '../api/axiosInstance.js';
-import useAuthStore from '../store/authStore.js';
-import Header from '../components/Header.js';
 import CustomTextInput from '../components/CustomTextInput.js';
 import CustomButton from '../components/CustomButton.js';
+import Header from '../components/Header.js';
 
 // ---------------------------
-// Validation schema using yup
+// Validation schema
 // ---------------------------
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -21,8 +20,9 @@ const schema = yup.object().shape({
 });
 
 export default function RegisterScreen({ navigation }) {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: { email: '', password: '', confirmPassword: '' },
   });
 
   // ---------------------------
@@ -35,78 +35,89 @@ export default function RegisterScreen({ navigation }) {
         password: data.password,
       });
       alert('Registration successful! Please login.');
-      navigation.navigate('Login'); // Go to login after success
+      navigation.navigate('Login');
     } catch (err) {
-      // console.log(err.response?.data || err.message);
       alert(err.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Register" />
-      <View style={styles.content}>
-      {/* Email Input */}
-      <Controller
-        control={control}
-        name="email"
-        defaultValue=""
-        render={({ field: { onChange, value } }) => (
-            <CustomTextInput
-              name="Email"
-            placeholder="Email"
-            value={value}
-            onChangeText={onChange}
-            autoCapitalize="none"
-              error={errors.email?.message}
-          />
-        )}
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+          <Header title="Register" />
 
-      {/* Password Input */}
-      <Controller
-        control={control}
-        name="password"
-        defaultValue=""
-        render={({ field: { onChange, value } }) => (
-            <CustomTextInput
-              name="Password"
-            placeholder="Password"
-            secureTextEntry
-            value={value}
-            onChangeText={onChange}
-              error={errors.password?.message}
-          />
-        )}
-      />
+          {/* Form Card */}
+          <View style={styles.formCard}>
+            {/* Email Input */}
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  label="Email"
+                  placeholder="Enter your email"
+                  value={value}
+                  onChangeText={onChange}
+                  autoCapitalize="none"
+                  error={errors.email?.message}
+                />
+              )}
+            />
 
-      {/* Confirm Password Input */}
-      <Controller
-        control={control}
-        name="confirmPassword"
-        defaultValue=""
-        render={({ field: { onChange, value } }) => (
-            <CustomTextInput
-              name="Confirm Password"
-            placeholder="Confirm Password"
-            secureTextEntry
-            value={value}
-            onChangeText={onChange}
-              error={errors.confirmPassword?.message}
-          />
-        )}
-      />
+            {/* Password Input */}
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  label="Password"
+                  placeholder="Enter password"
+                  secureTextEntry
+                  value={value}
+                  onChangeText={onChange}
+                  error={errors.password?.message}
+                />
+              )}
+            />
 
-      {/* Submit Button */}
-        <CustomButton name="Register" onPress={handleSubmit(register)} />
+            {/* Confirm Password Input */}
+            <Controller
+              control={control}
+              name="confirmPassword"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  label="Confirm Password"
+                  placeholder="Confirm password"
+                  secureTextEntry
+                  value={value}
+                  onChangeText={onChange}
+                  error={errors.confirmPassword?.message}
+                />
+              )}
+            />
 
-      {/* Go to Login */}
-        <CustomButton
-          name="Already have an account? Login"
-          onPress={() => navigation.navigate('Login')}
-          variant="text"
-        />
-      </View>
+            {/* Register Button */}
+            <CustomButton
+              title="Register"
+              onPress={handleSubmit(register)}
+              loading={isSubmitting}
+              style={styles.registerButton}
+            />
+
+            {/* Already have an account */}
+            <View style={styles.loginLinkContainer}>
+              <Text style={styles.loginPrompt}>Already have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.loginLink}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -117,11 +128,44 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F8FAFC',
   },
-  content: {
-    flex: 1,
-    padding: 20,
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+  },
+  formCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 28,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.05,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  registerButton: {
+    backgroundColor: '#4F46E5',
+    marginTop: 10,
+    borderRadius: 16,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginLinkContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 16,
+  },
+  loginPrompt: {
+    fontSize: 15,
+    color: '#64748B',
+  },
+  loginLink: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#4F46E5',
   },
 });

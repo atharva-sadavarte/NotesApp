@@ -1,30 +1,38 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ArrowLeft, Menu, LogOut } from 'lucide-react-native';
+import { ArrowLeft } from 'lucide-react-native';
 
-export default function Header({ title, showBackButton = false, showMenu = false, showLogout = false, onMenuPress, onLogoutPress }) {
+export default function Header({ 
+  title, 
+  showBackButton = false, 
+  rightIcons = [] // Array of { icon: Component, onPress: function, color?: string }
+}) {
   const navigation = useNavigation();
 
   return (
     <View style={styles.header}>
-      {showBackButton && (
+      {showBackButton ? (
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconButton}>
           <ArrowLeft size={24} color="#000" />
         </TouchableOpacity>
+      ) : (
+        <View style={styles.iconButton} /> // Empty placeholder
       )}
+
       <Text style={styles.title}>{title}</Text>
-      {showLogout && (
-        <TouchableOpacity onPress={onLogoutPress} style={styles.iconButton}>
-          <LogOut size={24} color="#000" />
-        </TouchableOpacity>
-      )}
-      {showMenu && !showLogout && (
-        <TouchableOpacity onPress={onMenuPress} style={styles.iconButton}>
-          <Menu size={24} color="#000" />
-        </TouchableOpacity>
-      )}
-      {!showMenu && !showLogout && showBackButton && <View style={styles.iconButton} />}
+
+      <View style={styles.rightIconsContainer}>
+        {rightIcons.map((item, index) => (
+          <TouchableOpacity 
+            key={index} 
+            onPress={item.onPress} 
+            style={styles.iconButton}
+          >
+            <item.icon size={22} color={item.color || '#000'} />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
@@ -44,15 +52,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     flex: 1,
-    textAlign: 'left',
-    color: '#000',
     marginLeft: 8,
+    color: '#000',
+    textAlign: 'left',
   },
   iconButton: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: 8,
+  },
+  rightIconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
-

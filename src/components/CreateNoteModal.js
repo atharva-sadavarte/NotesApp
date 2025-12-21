@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   View,
@@ -8,75 +8,58 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import { X, Sparkles } from 'lucide-react-native';
-import CustomTextInput from './CustomTextInput.js';
-import CustomButton from './CustomButton.js';
-
-// Trendy minimalist color palette - Warm, Peach, Lavender, Neutral tones
-const NOTE_COLORS = [
-  { background: "#FFF6E5", border: "#FFE8B6" }, // Soft mango cream
-  { background: "#FFF1D6", border: "#FFE8B6" }, // Warm pastel yellow
-  { background: "#FFECC8", border: "#FFE8B6" }, // Muted mango
-  { background: "#FBE7C6", border: "#FFE8B6" }, // Vanilla cream
-  { background: "#FAF3E0", border: "#FBE7C6" }, // Almond white
-  { background: "#F9EED7", border: "#FBE7C6" }, // Pale sand
-  { background: "#FFEFE6", border: "#FFDCD2" }, // Peach milk
-  { background: "#FFDCD2", border: "#FFE3D6" }, // Soft blush
-  { background: "#FFE3D6", border: "#FADADD" }, // Warm rose
-  { background: "#FADADD", border: "#F6E1E1" }, // Dusty pink
-  { background: "#F3F0FF", border: "#ECE9FF" }, // Lavender white
-  { background: "#ECE9FF", border: "#E8E6F5" }, // Soft lavender
-  { background: "#E8E6F5", border: "#E6E1F0" }, // Grey-lavender
-  { background: "#F1ECF8", border: "#E6E1F0" }, // Cloud lavender
-  { background: "#F5F5F7", border: "#EFEFF4" }, // Apple system white
-  { background: "#EFEFF4", border: "#EDEDED" }, // macOS grey
-  { background: "#F0F4EC", border: "#EEF3E8" }, // Sage white
-  { background: "#EEF3E8", border: "#E8F1EC" }, // Soft olive cream
-];
+} from "react-native";
+import { X, Sparkles } from "lucide-react-native";
+import CustomTextInput from "./CustomTextInput";
+import CustomButton from "./CustomButton";
+import NoteColors from "../utils/NoteColors";
 
 // Generate random color for new note
-function getRandomColor() {
-  const randomIndex = Math.floor(Math.random() * NOTE_COLORS.length);
-  return NOTE_COLORS[randomIndex];
-}
+const getRandomColor = () => {
+  const index = Math.floor(Math.random() * NoteColors.length);
+  return NoteColors[index];
+};
 
-export default function CreateNoteModal({ visible, onClose, onCreateNote, loading = false }) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [error, setError] = useState('');
+export default function CreateNoteModal({
+  visible,
+  mode = "create", // "create" | "edit"
+  initialTitle = "",
+  initialContent = "",
+  onSubmit,
+  onClose,
+  loading = false,
+}) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [error, setError] = useState("");
 
-  // Clear inputs when modal closes
   useEffect(() => {
-    if (!visible) {
-      setTitle('');
-      setContent('');
-      setError('');
+    if (visible) {
+      setTitle(initialTitle);
+      setContent(initialContent);
+      setError("");
     }
-  }, [visible]);
+  }, [visible, initialTitle, initialContent]);
 
-  const handleCreate = () => {
+  const handleSubmit = () => {
     if (!title.trim()) {
-      setError('Title is required');
+      setError("Title is required");
       return;
     }
-    setError('');
-    // Generate random color during creation
-    const randomColor = getRandomColor();
-    // Store values before clearing
-    const noteTitle = title;
-    const noteContent = content;
-    // Clear inputs instantly
-    setTitle('');
-    setContent('');
-    onCreateNote({ title: noteTitle, content: noteContent, noteColor: randomColor });
+    setError("");
+
+    if (mode === "create") {
+      const noteColor = getRandomColor();
+      onSubmit({ title, content, noteColor });
+    } else {
+      onSubmit({ title, content });
+    }
   };
 
   const handleClose = () => {
-    // Clear inputs instantly
-    setTitle('');
-    setContent('');
-    setError('');
+    setTitle("");
+    setContent("");
+    setError("");
     onClose();
   };
 
@@ -84,44 +67,50 @@ export default function CreateNoteModal({ visible, onClose, onCreateNote, loadin
     <Modal
       visible={visible}
       animationType="slide"
-      transparent={true}
+      transparent
       onRequestClose={handleClose}
     >
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.modalContainer}
       >
         <View style={styles.modalContent}>
+          {/* ---------- Header ---------- */}
           <View style={styles.modalHeader}>
-            <View style={styles.headerContent}>
-              <View style={styles.titleContainer}>
-                <View style={styles.iconWrapper}>
-                  <Sparkles size={22} color="#6366F1" strokeWidth={2} />
-                </View>
-                <Text style={styles.modalTitle}>New Note</Text>
+            <View style={styles.titleContainer}>
+              <View style={styles.iconWrapper}>
+                <Sparkles size={22} color="#4F46E5" strokeWidth={2} />
               </View>
+              <Text style={styles.modalTitle}>
+                {mode === "create" ? "New Note" : "Edit Note"}
+              </Text>
             </View>
-            <TouchableOpacity onPress={handleClose} style={styles.closeButton} activeOpacity={0.7}>
+
+            <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
               <View style={styles.closeButtonCircle}>
                 <X size={18} color="#6B7280" strokeWidth={2.5} />
               </View>
             </TouchableOpacity>
           </View>
 
-          <ScrollView style={styles.modalBody} showsVerticalScrollIndicator={false}>
+          {/* ---------- Body ---------- */}
+          <ScrollView
+            style={styles.modalBody}
+            showsVerticalScrollIndicator={false}
+          >
             <CustomTextInput
-              name="Title"
+              label="Title"
               placeholder="Note Title"
               value={title}
               onChangeText={(text) => {
                 setTitle(text);
-                if (error) setError('');
+                if (error) setError("");
               }}
               error={error}
             />
 
             <CustomTextInput
-              name="Content"
+              label="Content"
               placeholder="Note Content"
               value={content}
               onChangeText={setContent}
@@ -129,21 +118,23 @@ export default function CreateNoteModal({ visible, onClose, onCreateNote, loadin
             />
           </ScrollView>
 
+          {/* ---------- Footer ---------- */}
           <View style={styles.modalFooter}>
-            <View style={styles.footerButtonContainer}>
-              <CustomButton
-                name="Cancel"
-                onPress={handleClose}
-                variant="secondary"
-              />
-            </View>
-            <View style={styles.footerButtonContainer}>
-              <CustomButton
-                name="Create Note"
-                onPress={handleCreate}
-                loading={loading}
-              />
-            </View>
+            <CustomButton
+              title="Cancel"
+              variant="secondary"
+              onPress={handleClose}
+              style={styles.button}
+              textStyle={styles.secondaryButtonText}
+            />
+
+            <CustomButton
+              title={mode === "create" ? "Create Note" : "Update Note"}
+              onPress={handleSubmit}
+              loading={loading}
+              style={[styles.button, styles.primaryButton]}
+              textStyle={styles.primaryButtonText}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -154,88 +145,95 @@ export default function CreateNoteModal({ visible, onClose, onCreateNote, loadin
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
-    maxHeight: '92%',
-    paddingBottom: Platform.OS === 'ios' ? 32 : 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 24,
+    maxHeight: "92%",
+    paddingBottom: Platform.OS === "ios" ? 32 : 20,
     elevation: 24,
   },
   modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 28,
-    paddingTop: 28,
-    paddingBottom: 24,
+    paddingVertical: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-    backgroundColor: '#FAFAFA',
-  },
-  headerContent: {
-    flex: 1,
+    borderBottomColor: "#E5E7EB",
+    backgroundColor: "#FAFAFA",
   },
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   iconWrapper: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#EEF2FF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#EEF2FF",
+    alignItems: "center",
+    justifyContent: "center",
   },
   modalTitle: {
-    fontSize: 26,
-    fontWeight: '800',
-    color: '#111827',
-    letterSpacing: -0.6,
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#111827",
   },
   closeButton: {
     width: 44,
     height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   closeButtonCircle: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: '#F5F5F5',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#F5F5F5",
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: "#E5E7EB",
   },
   modalBody: {
-    padding: 28,
+    paddingHorizontal: 28,
+    paddingTop: 20,
     maxHeight: 480,
-    backgroundColor: '#FFFFFF',
   },
   modalFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 28,
     paddingTop: 24,
     paddingBottom: 28,
-    gap: 14,
     borderTopWidth: 1,
-    borderTopColor: '#F0F0F0',
-    backgroundColor: '#FAFAFA',
+    borderTopColor: "#E5E7EB",
+    backgroundColor: "#FAFAFA",
+    gap: 12,
   },
-  footerButtonContainer: {
+  button: {
     flex: 1,
+    height: 52,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  primaryButton: {
+    backgroundColor: "#4F46E5",
+  },
+  primaryButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  secondaryButtonText: {
+    color: "#4F46E5",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
-

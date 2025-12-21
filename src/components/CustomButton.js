@@ -2,11 +2,13 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 export default function CustomButton({
-  name,
+  title, // use title instead of name
   onPress,
   variant = 'primary',
   disabled = false,
   loading = false,
+  style,
+  textStyle,
   ...otherProps
 }) {
   return (
@@ -15,23 +17,20 @@ export default function CustomButton({
         styles.button,
         styles[variant],
         disabled && styles.disabled,
+        style,
       ]}
       onPress={onPress}
       disabled={disabled || loading}
-      activeOpacity={0.7}
+      activeOpacity={0.8}
       {...otherProps}
     >
       {loading ? (
         <ActivityIndicator
-          color={
-            variant === 'primary'
-              ? '#3A3A3C' // Dark text color for loader contrast
-              : '#8338EC' // Bold lavender for secondary
-          }
+          color={variant === 'primary' ? '#FFFFFF' : '#8338EC'}
         />
       ) : (
-        <Text style={[styles.buttonText, styles[`${variant}Text`]]}>
-          {name}
+        <Text style={[styles.buttonText, styles[`${variant}Text`], textStyle]}>
+          {title}
         </Text>
       )}
     </TouchableOpacity>
@@ -40,36 +39,35 @@ export default function CustomButton({
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 24,
-    borderRadius: 10,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
   },
   primary: {
-    backgroundColor: '#D9D4F1', // Soft lavender pastel (modern minimal)
+    backgroundColor: '#4F46E5', // Bold indigo – high contrast
   },
   secondary: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#8338EC', // Bold lavender accent
-  },
-  text: {
-    backgroundColor: 'transparent',
+    borderColor: '#4F46E5',
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   primaryText: {
-    color: '#3A3A3C', // Dark text for contrast
+    color: '#FFFFFF',
   },
   secondaryText: {
-    color: '#8338EC', // Bold lavender
-  },
-  textText: {
-    color: '#3A3A3C', // Minimal dark text
+    color: '#4F46E5',
   },
   disabled: {
     opacity: 0.5,
