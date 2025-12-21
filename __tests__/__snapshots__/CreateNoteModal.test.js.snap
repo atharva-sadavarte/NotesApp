@@ -1,0 +1,675 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNoteModal renders correctly and matches snapshot 1`] = `
+<Modal
+  animationType="slide"
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    onLayout={[Function]}
+    style={
+      [
+        {
+          "backgroundColor": "rgba(0,0,0,0.5)",
+          "flex": 1,
+          "justifyContent": "flex-end",
+        },
+        {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#FFFFFF",
+          "borderTopLeftRadius": 32,
+          "borderTopRightRadius": 32,
+          "elevation": 24,
+          "maxHeight": "92%",
+          "paddingBottom": 32,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FAFAFA",
+            "borderBottomColor": "#E5E7EB",
+            "borderBottomWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingHorizontal": 28,
+            "paddingVertical": 24,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 12,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#EEF2FF",
+                "borderRadius": 20,
+                "height": 40,
+                "justifyContent": "center",
+                "width": 40,
+              }
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={22}
+              bbWidth={22}
+              fill="none"
+              focusable={false}
+              height={22}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              stroke="#4F46E5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  {
+                    "flex": 0,
+                    "height": 22,
+                    "width": 22,
+                  },
+                ]
+              }
+              vbHeight={24}
+              vbWidth={24}
+              width={22}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <RNSVGGroup
+                fill={null}
+                propList={
+                  [
+                    "fill",
+                    "stroke",
+                    "strokeWidth",
+                    "strokeLinecap",
+                    "strokeLinejoin",
+                  ]
+                }
+                stroke={
+                  {
+                    "payload": 4283385573,
+                    "type": 0,
+                  }
+                }
+                strokeLinecap={1}
+                strokeLinejoin={1}
+                strokeWidth={2}
+              >
+                <RNSVGPath
+                  d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  stroke={
+                    {
+                      "payload": 4283385573,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2}
+                />
+                <RNSVGPath
+                  d="M20 2v4"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  stroke={
+                    {
+                      "payload": 4283385573,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2}
+                />
+                <RNSVGPath
+                  d="M22 4h-4"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  stroke={
+                    {
+                      "payload": 4283385573,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2}
+                />
+                <RNSVGCircle
+                  cx="4"
+                  cy="20"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  r="2"
+                  stroke={
+                    {
+                      "payload": 4283385573,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2}
+                />
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+          <Text
+            style={
+              {
+                "color": "#111827",
+                "fontSize": 24,
+                "fontWeight": "800",
+              }
+            }
+          >
+            New Note
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "height": 44,
+              "justifyContent": "center",
+              "opacity": 1,
+              "width": 44,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#F5F5F5",
+                "borderColor": "#E5E7EB",
+                "borderRadius": 19,
+                "borderWidth": 1,
+                "height": 38,
+                "justifyContent": "center",
+                "width": 38,
+              }
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={18}
+              bbWidth={18}
+              fill="none"
+              focusable={false}
+              height={18}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              stroke="#6B7280"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  {
+                    "flex": 0,
+                    "height": 18,
+                    "width": 18,
+                  },
+                ]
+              }
+              vbHeight={24}
+              vbWidth={24}
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <RNSVGGroup
+                fill={null}
+                propList={
+                  [
+                    "fill",
+                    "stroke",
+                    "strokeWidth",
+                    "strokeLinecap",
+                    "strokeLinejoin",
+                  ]
+                }
+                stroke={
+                  {
+                    "payload": 4285231744,
+                    "type": 0,
+                  }
+                }
+                strokeLinecap={1}
+                strokeLinejoin={1}
+                strokeWidth={2.5}
+              >
+                <RNSVGPath
+                  d="M18 6 6 18"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  stroke={
+                    {
+                      "payload": 4285231744,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2.5}
+                />
+                <RNSVGPath
+                  d="m6 6 12 12"
+                  fill={null}
+                  propList={
+                    [
+                      "fill",
+                      "stroke",
+                      "strokeWidth",
+                      "strokeLinecap",
+                      "strokeLinejoin",
+                    ]
+                  }
+                  stroke={
+                    {
+                      "payload": 4285231744,
+                      "type": 0,
+                    }
+                  }
+                  strokeLinecap={1}
+                  strokeLinejoin={1}
+                  strokeWidth={2.5}
+                />
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+        </View>
+      </View>
+      <RCTScrollView
+        showsVerticalScrollIndicator={false}
+        style={
+          {
+            "maxHeight": 480,
+            "paddingHorizontal": 28,
+            "paddingTop": 20,
+          }
+        }
+      >
+        <View>
+          <View
+            style={
+              {
+                "marginVertical": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#1F2937",
+                  "fontSize": 14,
+                  "fontWeight": "600",
+                  "marginBottom": 4,
+                }
+              }
+            >
+              Title
+            </Text>
+            <TextInput
+              autoCapitalize="none"
+              multiline={false}
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              placeholder="Note Title"
+              placeholderTextColor="#9CA3AF"
+              secureTextEntry={false}
+              style={
+                [
+                  {
+                    "backgroundColor": "#F8FAFF",
+                    "borderColor": "#E5E7EB",
+                    "borderRadius": 14,
+                    "borderWidth": 1,
+                    "color": "#111827",
+                    "fontSize": 16,
+                    "padding": 14,
+                    "shadowColor": "#000",
+                    "shadowOffset": {
+                      "height": 2,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0.05,
+                    "shadowRadius": 4,
+                  },
+                  false,
+                  "",
+                  false,
+                  undefined,
+                ]
+              }
+              value=""
+            />
+          </View>
+          <View
+            style={
+              {
+                "marginVertical": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#1F2937",
+                  "fontSize": 14,
+                  "fontWeight": "600",
+                  "marginBottom": 4,
+                }
+              }
+            >
+              Content
+            </Text>
+            <TextInput
+              autoCapitalize="none"
+              multiline={true}
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              placeholder="Note Content"
+              placeholderTextColor="#9CA3AF"
+              secureTextEntry={false}
+              style={
+                [
+                  {
+                    "backgroundColor": "#F8FAFF",
+                    "borderColor": "#E5E7EB",
+                    "borderRadius": 14,
+                    "borderWidth": 1,
+                    "color": "#111827",
+                    "fontSize": 16,
+                    "padding": 14,
+                    "shadowColor": "#000",
+                    "shadowOffset": {
+                      "height": 2,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0.05,
+                    "shadowRadius": 4,
+                  },
+                  {
+                    "minHeight": 120,
+                    "textAlignVertical": "top",
+                  },
+                  undefined,
+                  false,
+                  undefined,
+                ]
+              }
+              value=""
+            />
+          </View>
+        </View>
+      </RCTScrollView>
+      <View
+        style={
+          {
+            "backgroundColor": "#FAFAFA",
+            "borderTopColor": "#E5E7EB",
+            "borderTopWidth": 1,
+            "flexDirection": "row",
+            "gap": 12,
+            "justifyContent": "space-between",
+            "paddingBottom": 28,
+            "paddingHorizontal": 28,
+            "paddingTop": 24,
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "#4F46E5",
+              "borderRadius": 16,
+              "borderWidth": 1,
+              "elevation": 4,
+              "flex": 1,
+              "height": 52,
+              "justifyContent": "center",
+              "marginVertical": 8,
+              "opacity": 1,
+              "paddingHorizontal": 24,
+              "paddingVertical": 14,
+              "shadowColor": "#000",
+              "shadowOffset": {
+                "height": 4,
+                "width": 0,
+              },
+              "shadowOpacity": 0.1,
+              "shadowRadius": 6,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                },
+                {
+                  "color": "#4F46E5",
+                },
+                {
+                  "color": "#4F46E5",
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Cancel
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#4F46E5",
+              "borderRadius": 16,
+              "elevation": 4,
+              "flex": 1,
+              "height": 52,
+              "justifyContent": "center",
+              "marginVertical": 8,
+              "opacity": 1,
+              "paddingHorizontal": 24,
+              "paddingVertical": 14,
+              "shadowColor": "#000",
+              "shadowOffset": {
+                "height": 4,
+                "width": 0,
+              },
+              "shadowOpacity": 0.1,
+              "shadowRadius": 6,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+                {
+                  "color": "#FFFFFF",
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Create Note
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
