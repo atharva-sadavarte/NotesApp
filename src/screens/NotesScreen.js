@@ -7,6 +7,7 @@ import {
   Alert,
   SafeAreaView,
   StyleSheet,
+  StatusBar,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Plus, ChevronRight } from "lucide-react-native";
@@ -79,11 +80,15 @@ export default function NotesScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <Header title="My Notes" />
       <View style={styles.content}>
         <FlatList
           data={notes}
           keyExtractor={(item) => item.id.toString()}
+          //item → one element of your data array
+          //item.id → the unique identifier for that item
+          //.toString() → FlatList requires the key to be a string, so we convert numbers to string
           renderItem={({ item }) => {
             const colors = noteColorsMap[item.id] || getNoteColors(item.id);
             return (
