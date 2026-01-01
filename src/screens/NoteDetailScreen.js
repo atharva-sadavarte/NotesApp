@@ -12,10 +12,10 @@ import {
   Platform,
 } from 'react-native';
 import { Copy, Share2, Edit, Trash2 } from 'lucide-react-native';
-import api from '../api/axiosInstance';
-import Header from '../components/Header';
-import CreateNoteModal from '../components/CreateNoteModal';
-import { deleteNote, updateNote } from '../api/notes.api';
+import api from '@api/axiosInstance';
+import Header from '@components/Header';
+import CreateNoteModal from '@components/CreateNoteModal';
+import { deleteNote, updateNote } from '@api/notes.api';
 
 export default function NoteDetailScreen({ route, navigation }) {
   const { id, noteColors } = route.params || {};

@@ -10,9 +10,9 @@ import {
   Platform,
 } from "react-native";
 import { X, Sparkles } from "lucide-react-native";
-import CustomTextInput from "./CustomTextInput";
-import CustomButton from "./CustomButton";
-import NoteColors from "../utils/NoteColors";
+import CustomTextInput from "@components/CustomTextInput";
+import CustomButton from "@components/CustomButton";
+import NoteColors from "@utils/NoteColors";
 
 // Generate random color for new note
 const getRandomColor = () => {

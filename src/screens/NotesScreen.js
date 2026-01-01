@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Plus, ChevronRight } from "lucide-react-native";
-import { fetchNotes, createNote } from "../api/notes.api.js";
-import useAuthStore from "../store/authStore.js";
-import Header from "../components/Header.js";
-import CreateNoteModal from "../components/CreateNoteModal.js";
-import NoteColors from "../utils/NoteColors.js";
+import { fetchNotes, createNote } from "@api/notes.api.js";
+import useAuthStore from "@store/authStore.js";
+import Header from "@components/Header.js";
+import CreateNoteModal from "@components/CreateNoteModal.js";
+import NoteColors from "@utils/NoteColors.js";
 
 
 

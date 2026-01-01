@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { ActivityIndicator, View } from 'react-native';
-import useAuthStore from './store/authStore.js';
-import AuthNavigator from './navigation/AuthNavigator.js';
-import AppNavigator from './navigation/AppNavigator.js';
+import AuthNavigator from '@navigation/AuthNavigator.js';
+import AppNavigator from '@navigation/AppNavigator.js';
+import useAuthStore from '@store/authStore.js';
 
 export default function App() {
   const { token, restoreAuth, isLoading } = useAuthStore();

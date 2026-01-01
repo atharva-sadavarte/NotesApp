@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from '../api/axiosInstance';
+import api from '@api/axiosInstance';
 
 // Keys
 const TOKEN_KEY = 'token';

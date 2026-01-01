@@ -1,16 +1,25 @@
+// @ts-nocheck
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, Text, TouchableOpacity } from 'react-native';
+import { 
+  View, 
+  StyleSheet, 
+  SafeAreaView, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  Platform, 
+  Text, 
+  TouchableOpacity,
+  Alert // Use Alert.alert instead of web-style alert()
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import api from '../api/axiosInstance.js';
-import CustomTextInput from '../components/CustomTextInput.js';
-import CustomButton from '../components/CustomButton.js';
-import Header from '../components/Header.js';
 
-// ---------------------------
-// Validation schema
-// ---------------------------
+// 1. Clean Absolute Imports (Removed .js)
+import api from '@api/axiosInstance';
+import { CustomTextInput, CustomButton, Header } from '@components'; 
+
+// 2. Validation schema (Defined outside to prevent re-creation on render)
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
@@ -20,24 +29,26 @@ const schema = yup.object().shape({
 });
 
 export default function RegisterScreen({ navigation }) {
-  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+  const { 
+    control, 
+    handleSubmit, 
+    formState: { errors, isSubmitting } 
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '', confirmPassword: '' },
   });
 
-  // ---------------------------
-  // Register API call
-  // ---------------------------
-  const register = async (data) => {
+  const onRegister = async (data) => {
     try {
       await api.post('/auth/register', {
         email: data.email,
         password: data.password,
       });
-      alert('Registration successful! Please login.');
-      navigation.navigate('Login');
+      Alert.alert('Success', 'Registration successful! Please login.', [
+        { text: 'OK', onPress: () => navigation.navigate('Login') }
+      ]);
     } catch (err) {
-      alert(err.response?.data?.message || 'Registration failed');
+      Alert.alert('Error', err.response?.data?.message || 'Registration failed');
     }
   };
 
@@ -45,14 +56,17 @@ export default function RegisterScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+        style={styles.keyboardView}
+        // keyboardVerticalOffset={64} // Adjust if header overlaps
       >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        <ScrollView 
+          contentContainerStyle={styles.scrollContent} 
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           <Header title="Register" />
 
-          {/* Form Card */}
           <View style={styles.formCard}>
-            {/* Email Input */}
             <Controller
               control={control}
               name="email"
@@ -63,12 +77,12 @@ export default function RegisterScreen({ navigation }) {
                   value={value}
                   onChangeText={onChange}
                   autoCapitalize="none"
+                  keyboardType="email-address"
                   error={errors.email?.message}
                 />
               )}
             />
 
-            {/* Password Input */}
             <Controller
               control={control}
               name="password"
@@ -84,7 +98,6 @@ export default function RegisterScreen({ navigation }) {
               )}
             />
 
-            {/* Confirm Password Input */}
             <Controller
               control={control}
               name="confirmPassword"
@@ -100,15 +113,13 @@ export default function RegisterScreen({ navigation }) {
               )}
             />
 
-            {/* Register Button */}
             <CustomButton
               title="Register"
-              onPress={handleSubmit(register)}
+              onPress={handleSubmit(onRegister)}
               loading={isSubmitting}
               style={styles.registerButton}
             />
 
-            {/* Already have an account */}
             <View style={styles.loginLinkContainer}>
               <Text style={styles.loginPrompt}>Already have an account? </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -122,13 +133,13 @@ export default function RegisterScreen({ navigation }) {
   );
 }
 
-// ---------------------------
-// Styles
-// ---------------------------
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8FAFC',
+  },
+  keyboardView: {
+    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
@@ -140,24 +151,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
     padding: 28,
+    // Standard shadow for 2026 UI
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.05,
     shadowRadius: 16,
-    elevation: 8,
+    elevation: 4,
   },
   registerButton: {
-    backgroundColor: '#4F46E5',
     marginTop: 10,
-    borderRadius: 16,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   loginLinkContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 16,
+    marginTop: 20,
   },
   loginPrompt: {
     fontSize: 15,

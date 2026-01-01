@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { User, Mail, LogOut } from 'lucide-react-native';
-import useAuthStore from '../store/authStore.js';
-import Header from '../components/Header.js';
+import useAuthStore from '@store/authStore.js';
+import Header from '@components/Header.js';
 
 export default function ProfileScreen() {
   const user = useAuthStore((state) => state.user);

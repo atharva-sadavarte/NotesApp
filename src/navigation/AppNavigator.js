@@ -2,9 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FileText, User } from 'lucide-react-native';
-import NotesScreen from '../screens/NotesScreen';
-import NoteDetailScreen from '../screens/NoteDetailScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import NotesScreen from '@screens/NotesScreen';
+import NoteDetailScreen from '@screens/NoteDetailScreen';
+import ProfileScreen from '@screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
